@@ -46,7 +46,7 @@ p {
     justify-content: space-between;
     align-items: center;
     /* Ajustado para usar padding horizontal de escritorio/móvil */
-    padding: 0.50rem var(--padding-main); 
+    padding: 0.50rem; 
     background-color: var(--color-white);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     position: sticky;
