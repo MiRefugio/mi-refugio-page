@@ -135,7 +135,6 @@ p {
 /* Estilo para la imagen del logo en la sección "Nuestro Proyecto" */
 .project-logo-box {
     background-color: var(--color-white);
-    border-radius: 5px;
     box-shadow: 0 2px 55px rgba(0, 0, 0, 0.05); /* Sombra ajustada */
     max-width: 400px;
     padding: 2rem; /* Agregamos padding para que la sombra se vea mejor */
