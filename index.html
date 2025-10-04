@@ -1,140 +1,403 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Refugio - Contención Emocional</title>
-    <link rel="stylesheet" href="styles.css">
-    </head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mi Refugio — Bienestar emocional</title>
+  <meta name="description" content="Landing informativa de Mi Refugio. Descubre funciones, equipo, emergencias en Chile y descarga la app.">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    :root{
+      --mr-blue:#1e40af;   /* azul */
+      --mr-sky:#60a5fa;    /* celeste */
+      --mr-sky-2:#dbeafe;  /* celeste claro */
+      --mr-ink:#0f172a;    /* texto fuerte */
+    }
+    body{background:linear-gradient(180deg, #ffffff 0%, var(--mr-sky-2) 100%);}    
+    .navbar{box-shadow:0 6px 20px rgba(2,6,23,.08)}
+    .btn-mr{background:var(--mr-blue); color:#fff}
+    .btn-mr:hover{background:#17348a; color:#fff}
+    .btn-outline-mr{border-color:var(--mr-blue); color:var(--mr-blue)}
+    .btn-outline-mr:hover{background:var(--mr-blue); color:#fff}
+    .shadow-soft{box-shadow:0 12px 30px rgba(2,6,23,.08)}
+    .badge-step{display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:.75rem; background:#fff; border:2px solid var(--mr-blue); color:var(--mr-blue); font-weight:800;}
+    .section-title{color:var(--mr-blue)}
+    .brand-logo{width:42px; height:42px; object-fit:contain}
+    /* Equipo */
+    .avatar{width:96px; height:96px; object-fit:cover; border-radius:50%; border:2px solid rgba(15,23,42,.1)}
+    /* Emergencias */
+    .gov-logo{max-height:52px; object-fit:contain}
+    .card-emg h5{color:var(--mr-blue)}
+    /* Footer */
+    footer{background:#fff}
+  </style>
+</head>
 <body>
+  <!-- NAV -->
+  <nav class="navbar navbar-expand-lg bg-white sticky-top">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="#inicio">
+        <img src="img/LOGO OFICIAL.png" class="brand-logo" alt="Logo Mi Refugio">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav" aria-expanded="false" aria-label="Abrir menú">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="nav">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="#que-es">¿Qué es?</a></li>
+          <li class="nav-item"><a class="nav-link" href="#como-usar">Cómo usar</a></li>
+          <li class="nav-item"><a class="nav-link" href="#incluye">Incluye</a></li>
+          <li class="nav-item"><a class="nav-link" href="#equipo">Equipo</a></li>
+          <li class="nav-item"><a class="nav-link" href="#emergencias">Emergencias</a></li>
+          <li class="nav-item"><a class="nav-link" href="#descargas">Descargas</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
-    <header class="navbar-container">
-        <div class="logo">
-            <img src="assets/logo.png" alt="Logo MiRefugio" class="logo-icon">
-            <h1>MiRefugio</h1>
+  <main id="inicio" class="py-5">
+    <!-- HERO -->
+    <section class="py-5">
+      <div class="container">
+        <div class="row align-items-center g-4">
+          <div class="col-lg-6">
+            <h1 class="display-5 fw-bold text-dark">Bienestar emocional, a un toque</h1>
+            <p class="lead text-secondary">Mi Refugio ofrece <strong>diario emocional</strong>, <strong>ejercicios de mindfulness</strong> y un <strong>chatbot de contención</strong> para acompañarte en el día a día.</p>
+            <div class="d-flex gap-2">
+              <a class="btn btn-mr btn-lg" href="#descargas">Descargar App</a>
+              <a class="btn btn-outline-mr btn-lg" href="#que-es">Saber más</a>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="card shadow-soft border-0">
+              <div class="card-body p-4">
+                <img src="img/LOGO OFICIAL.png" alt="Logo grande Mi Refugio" class="d-block mx-auto" style="max-height:200px">
+              </div>
+            </div>
+          </div>
         </div>
-        <nav class="nav-menu">
-            <a href="#proyecto" class="nav-link">Nuestro Proyecto</a>
-            <a href="#quienes-somos" class="nav-link">Quiénes somos</a>
-            <a href="#salud-mental" class="nav-link">Estudios</a>
-            <a href="#contacto" class="nav-button">Contacto</a>
-        </nav>
-    </header>
+      </div>
+    </section>
 
-    <main>
-        <section id="proyecto" class="section-container project-section">
-            <div class="content-left">
-                <h2>Nuestro Proyecto</h2>
-                <p>Una herramienta para la contención emocional.</p>
+    <!-- ¿QUÉ ES? -->
+    <section id="que-es" class="py-4">
+      <div class="container">
+        <div class="card shadow-soft border-0">
+          <div class="card-body p-4 p-md-5">
+            <h2 class="section-title mb-3">¿Qué es <em>Mi Refugio</em>?</h2>
+            <p class="mb-0 text-secondary">Proyecto universitario orientado a <strong>apoyo y educación emocional</strong> en Chile y LATAM. Promueve un espacio <strong>seguro, accesible y empático</strong> con enfoque de privacidad por diseño y accesibilidad.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-                <div class="cards-container">
-                    <div class="card card-white">
-                        <h3>Objetivos</h3>
-                        <ul class="list-bullet">
-                            <li>Educación clara y accesible.</li>
-                            <li>Registro y prácticas de autocuidado.</li>
-                            <li>Conexión con redes de apoyo.</li>
-                        </ul>
-                    </div>
-
-                    <div class="card card-white">
-                        <h3>Beneficios</h3>
-                        <ul class="list-bullet">
-                            <li>Acompañamiento y seguimiento.</li>
-                            <li>Recursos validados.</li>
-                            <li>Comunidad y pertenencia.</li>
-                        </ul>
-                    </div>
+    <!-- CÓMO USAR (como tu pancarta) -->
+    <section id="como-usar" class="py-4">
+      <div class="container">
+        <div class="card shadow-soft border-0">
+          <div class="card-body p-4 p-md-5">
+            <h2 class="section-title mb-4">¿Cómo usar la APP?</h2>
+            <div class="row g-4">
+              <div class="col-md-6">
+                <div class="d-flex gap-3">
+                  <span class="badge-step">1</span>
+                  <div>
+                    <h5 class="mb-1">Descarga la app</h5>
+                    <ul class="text-secondary mb-0">
+                      <li>Disponible en Google Play y App Store.</li>
+                      <li>También puedes escanear el código QR.</li>
+                    </ul>
+                  </div>
                 </div>
+              </div>
+              <div class="col-md-6">
+                <div class="d-flex gap-3">
+                  <span class="badge-step">2</span>
+                  <div>
+                    <h5 class="mb-1">Crea tu perfil</h5>
+                    <ul class="text-secondary mb-0">
+                      <li>Regístrate con correo o cuenta social.</li>
+                      <li>Tus datos son privados y están bajo tu control.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="d-flex gap-3">
+                  <span class="badge-step">3</span>
+                  <div>
+                    <h5 class="mb-1">Registra tu estado emocional</h5>
+                    <ul class="text-secondary mb-0">
+                      <li>Elige emociones y agrega notas para más precisión.</li>
+                      <li>Visualiza tu historial y patrones.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="d-flex gap-3">
+                  <span class="badge-step">4</span>
+                  <div>
+                    <h5 class="mb-1">Recibe apoyo y sugerencias</h5>
+                    <ul class="text-secondary mb-0">
+                      <li>Ejercicios breves de mindfulness.</li>
+                      <li>Consejos personalizados.</li>
+                      <li>Chatbot de contención (no terapia).</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-            <div class="content-right project-logo-box">
-                <img src="assets/logo.png" alt="Mi Refugio logo" class="main-logo-image">
+    <!-- INCLUYE -->
+    <section id="incluye" class="py-4">
+      <div class="container">
+        <h2 class="section-title mb-3">¿Qué incluye la app?</h2>
+        <div class="row g-3">
+          <div class="col-md-6 col-lg-4">
+            <div class="card h-100 shadow-soft border-0">
+              <div class="card-body">
+                <h5 class="card-title">Diario emocional</h5>
+                <p class="card-text text-secondary">Registra estados, notas y observa tu progreso con visualizaciones simples.</p>
+              </div>
             </div>
-        </section>
-
-
-        <section id="salud-mental" class="section-container mental-health-section">
-            <div class="content-left">
-                <h2>Salud Mental</h2>
-                <p>Información y recursos para tu bienestar.</p>
-
-                <div class="cards-container three-columns">
-                    <div class="card card-outline">
-                        <div class="card-icon-placeholder pink"></div>
-                        <h3>¿Qué es la salud mental?</h3>
-                        <p>Definiciones simples, señales de alerta y cuándo consultar.</p>
-                    </div>
-
-                    <div class="card card-outline">
-                        <div class="card-icon-placeholder green"></div>
-                        <h3>Consejos prácticos</h3>
-                        <p>Respiración, higiene del sueño, registro emocional y más.</p>
-                    </div>
-
-                    <div class="card card-outline">
-                        <div class="card-icon-placeholder pink-light"></div>
-                        <h3>Recursos de apoyo</h3>
-                        <p>Líneas de ayuda, guías breves y derivaciones.</p>
-                    </div>
-                </div>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <div class="card h-100 shadow-soft border-0">
+              <div class="card-body">
+                <h5 class="card-title">Chatbot de apoyo</h5>
+                <p class="card-text text-secondary">Contención inicial con mensajes claros de alcance y derivación.</p>
+              </div>
             </div>
-
-            <div class="content-right mental-health-graphics">
-                <img src="assets/salud-mental.jpg" alt="Gráficos de salud mental" class="mental-health-image">
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <div class="card h-100 shadow-soft border-0">
+              <div class="card-body">
+                <h5 class="card-title">Mindfulness y respiración</h5>
+                <p class="card-text text-secondary">Rutinas cortas para bajar la ansiedad y reconectar con el presente.</p>
+              </div>
             </div>
-        </section>
-
-
-        <section id="quienes-somos" class="section-container team-section">
-            <h2>Quiénes somos</h2>
-            <p>El equipo detrás de MiRefugio.</p>
-
-            <div class="team-cards-container">
-                <div class="team-card">
-                    <div class="team-member-info">
-                        <img src="assets/mateo.png" alt="Mateo Flores" class="member-photo">
-                        <p class="member-name"><strong>Mateo Flores</strong></p>
-                        <p class="member-role">Fundador</p>
-                    </div>
-                </div>
-
-                <div class="team-card">
-                    <div class="team-member-info">
-                        <img src="assets/naxo.png" alt="Pierre Salas" class="member-photo">
-                        <p class="member-name"><strong>Pierre Salas</strong></p>
-                        <p class="member-role">UX/UI</p>
-                    </div>
-                </div>
-
-                <div class="team-card">
-                    <div class="team-member-info">
-                        <img src="assets/isa.png" alt="Isaías Veloz" class="member-photo">
-                        <p class="member-name"><strong>Isaías Veloz</strong></p>
-                        <p class="member-role">Frontend</p>
-                    </div>
-                </div>
-
-                <div class="team-card">
-                    <div class="team-member-info">
-                        <img src="assets/liti.png" alt="Matías Rubilar" class="member-photo">
-                        <p class="member-name"><strong>Matías Rubilar</strong></p>
-                        <p class="member-role">Investigación</p>
-                    </div>
-                </div>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <div class="card h-100 shadow-soft border-0">
+              <div class="card-body">
+                <h5 class="card-title">Recursos y redes de ayuda</h5>
+                <p class="card-text text-secondary">Directorio confiable de líneas de apoyo y organizaciones.</p>
+              </div>
             </div>
-        </section>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <div class="card h-100 shadow-soft border-0">
+              <div class="card-body">
+                <h5 class="card-title">Privacidad por diseño</h5>
+                <p class="card-text text-secondary">Permisos mínimos, cifrado y control del usuario sobre sus datos.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <div class="card h-100 shadow-soft border-0">
+              <div class="card-body">
+                <h5 class="card-title">Recomendaciones con IA</h5>
+                <p class="card-text text-secondary">Sugerencias de hábitos y actividades según tus registros.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        <section id="contacto" class="section-container contact-section">
-            <h2>Contacto</h2>
-            <p>Envíanos un mensaje o encuéntranos en nuestras redes.</p>
-        </section>
+    <!-- EQUIPO -->
+    <section id="equipo" class="py-4">
+      <div class="container">
+        <h2 class="section-title mb-3">¿Quiénes somos?</h2>
+        <div class="row g-3">
+          <div class="col-sm-6 col-lg-3">
+            <div class="card text-center shadow-soft border-0">
+              <div class="card-body">
+                <!-- FOTO EQUIPO: coloca tu foto en assets/team/mateo.jpg -->
+                <img class="avatar mb-2" src="img/mateo.flores.jpg" alt="Mateo Flores">
+                <h6 class="mb-0">Mateo Flores</h6>
+                <small class="text-secondary">Jefe de Proyecto</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-lg-3">
+            <div class="card text-center shadow-soft border-0">
+              <div class="card-body">
+                <img class="avatar mb-2" src="img/pierre.salas.jpg" alt="Pierre Salas">
+                <h6 class="mb-0">Pierre Salas</h6>
+                <small class="text-secondary">Jefe de Desarrollo</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-lg-3">
+            <div class="card text-center shadow-soft border-0">
+              <div class="card-body">
+                <img class="avatar mb-2" src="img/liti.png" alt="Matías Rubilar">
+                <h6 class="mb-0">Matías Rubilar</h6>
+                <small class="text-secondary">Analista de Calidad</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-lg-3">
+            <div class="card text-center shadow-soft border-0">
+              <div class="card-body">
+                <img class="avatar mb-2" src="img/isaias.veloz.jpg" alt="Isaias Veloz">
+                <h6 class="mb-0">Isaias Veloz</h6>
+                <small class="text-secondary">Arquitecto de Software</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    </main>
+    <!-- EMERGENCIAS CHILE -->
+    <section id="emergencias" class="py-4">
+      <div class="container">
+        <div class="card shadow-soft border-0">
+          <div class="card-body p-4 p-md-5">
+            <div class="d-flex align-items-center gap-3 mb-3 flex-wrap">
+              <!-- LOGO GOBIERNO: coloca el archivo en assets/gobierno-chile-logo.png -->
+              <img src="img/MINSAL.png" alt="Gobierno de Chile" class="gov-logo">
+              <h2 class="section-title mb-0">Emergencias psicológicas en Chile</h2>
+            </div>
+            <div class="row g-3">
+              <div class="col-md-6 col-lg-4">
+                <div class="card card-emg h-100 shadow-sm">
+                  <div class="card-body">
+                    <h5 class="card-title">*4141 — Prevención del suicidio</h5>
+                    <p class="text-secondary mb-0">“No estás solo, no estás sola”. Atención <strong>24/7</strong>, gratuita y confidencial por profesionales.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-4">
+                <div class="card card-emg h-100 shadow-sm">
+                  <div class="card-body">
+                    <h5 class="card-title">600 360 7777 — Salud Responde (MINSAL)</h5>
+                    <p class="text-secondary mb-0">Orientación de salud <strong>24/7</strong> y derivación a la red pública cuando corresponda.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-4">
+                <div class="card card-emg h-100 shadow-sm">
+                  <div class="card-body">
+                    <h5 class="card-title">1455 — Violencias de género (SernamEG)</h5>
+                    <p class="text-secondary mb-0">Atención gratuita para víctimas o testigos. <strong>08:00–24:00</strong> todos los días.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-4">
+                <div class="card card-emg h-100 shadow-sm">
+                  <div class="card-body">
+                    <h5 class="card-title">Emergencias generales</h5>
+                    <p class="text-secondary mb-0"><strong>131</strong> SAMU · <strong>132</strong> Bomberos · <strong>133</strong> Carabineros · <strong>134</strong> PDI.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-4">
+                <div class="card card-emg h-100 shadow-sm">
+                  <div class="card-body">
+                    <h5 class="card-title">800 200 818 — Fono Infancia</h5>
+                    <p class="text-secondary mb-0">Apoyo psicológico en crianza de niñas, niños y adolescentes.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="mt-3 small text-secondary">Aviso: Mi Refugio ofrece contención y educación. <strong>No reemplaza</strong> atención psicológica o médica. En riesgo inminente, llama al <strong>131</strong> o acude a urgencias.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <footer class="footer">
-        <p>&copy; 2025 Mi Refugio. Todos los derechos reservados.</p>
-    </footer>
+    <!-- DESCARGAS -->
+    <section id="descargas" class="py-4">
+      <div class="container">
+        <div class="card shadow-soft border-0">
+          <div class="card-body p-4">
+            <h2 class="section-title mb-3">Descarga la app</h2>
+            <p class="text-secondary">Próximamente en tiendas.</p>
+            <div class="d-flex flex-wrap gap-2">
+              <a class="btn btn-outline-mr" href="https://play.google.com/store/apps/details?id=com.mirefugio" target="_blank" rel="noopener">Google Play</a>
+              <a class="btn btn-outline-mr" href="https://apps.apple.com/app/id0000000000" target="_blank" rel="noopener">App Store</a>
+            </div>
+            <p class="small text-secondary mt-2">Enlaces de ejemplo, reemplázalos cuando estén publicados.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
+    <!-- CONTACTO -->
+    <section id="contacto" class="py-4">
+      <div class="container">
+        <div class="card shadow-soft border-0">
+          <div class="card-body p-4">
+            <h2 class="section-title mb-3">Preguntas y sugerencias</h2>
+            <form id="form" class="row g-3" novalidate>
+              <div class="col-md-6">
+                <label for="name" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="name" required placeholder="Tu nombre">
+                <div class="invalid-feedback">Ingresa tu nombre.</div>
+              </div>
+              <div class="col-md-6">
+                <label for="email" class="form-label">Correo</label>
+                <input type="email" class="form-control" id="email" required placeholder="tu@correo.com">
+                <div class="invalid-feedback">Ingresa un correo válido.</div>
+              </div>
+              <div class="col-md-6">
+                <label for="type" class="form-label">Tipo</label>
+                <select id="type" class="form-select" required>
+                  <option value="" selected disabled>Selecciona una opción</option>
+                  <option value="pregunta">Pregunta</option>
+                  <option value="sugerencia">Sugerencia</option>
+                  <option value="otro">Otro</option>
+                </select>
+                <div class="invalid-feedback">Selecciona el tipo de mensaje.</div>
+              </div>
+              <div class="col-12">
+                <label for="message" class="form-label">Mensaje</label>
+                <textarea id="message" class="form-control" rows="5" minlength="10" maxlength="1000" required placeholder="Cuéntanos en qué te podemos ayudar"></textarea>
+                <div class="form-text">Mínimo 10 caracteres.</div>
+                <div class="invalid-feedback">Ingresa un mensaje (≥ 10 caracteres).</div>
+              </div>
+              <div class="col-12 d-flex gap-2">
+                <button type="submit" class="btn btn-mr">Enviar</button>
+                <button type="reset" class="btn btn-outline-mr">Limpiar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="py-4 border-top">
+    <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+      <p class="mb-0 small text-secondary">© <span id="year"></span> Mi Refugio</p>
+      <p class="mb-0 small text-secondary">Fuente de teléfonos: Gobierno de Chile (programas públicos).</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Año dinámico
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Validación Bootstrap
+    const form = document.getElementById('form');
+    form.addEventListener('submit', (e)=>{
+      if(!form.checkValidity() || (document.getElementById('message').value.trim().length < 10)){
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      form.classList.add('was-validated');
+    });
+  </script>
 </body>
 </html>
