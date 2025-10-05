@@ -366,7 +366,7 @@
                 <div class="form-text">Mínimo 10 caracteres.</div>
                 <div class="invalid-feedback">Ingresa un mensaje (≥ 10 caracteres).</div>
               </div>
-              <div class="g-recaptcha" data-sitekey="TU_RECAPTCHA_SITE_KEY"></div>
+              <div class="g-recaptcha" data-sitekey="6LdvnN8rAAAAAHqkv8JSH0SnUMpuyVUr31Ql0QUa"></div>
               <div class="col-12 d-flex gap-2">
                 <button type="submit" class="btn btn-mr">Enviar</button>
                 <button type="reset" class="btn btn-outline-mr">Limpiar</button>
@@ -377,15 +377,13 @@
       </div>
     </section>
     <!--BACKEND FORM-->
-    <script>
-  // Año dinámico
+<script>
   document.getElementById('year').textContent = new Date().getFullYear();
 
   const form_contac = document.getElementById('form');
   form.addEventListener('submit', async (e) => {
     if (!form.checkValidity() || (document.getElementById('message').value.trim().length < 10)) {
-      e.preventDefault();
-      e.stopPropagation();
+      e.preventDefault(); e.stopPropagation();
       form.classList.add('was-validated');
       return;
     }
@@ -393,36 +391,32 @@
     e.preventDefault();
     form.classList.add('was-validated');
 
-    // 1) tomar token de reCAPTCHA
     const recaptchaResponse = document.querySelector('textarea[name="g-recaptcha-response"]')?.value;
-    if (!recaptchaResponse) {
-      alert('Por favor completa el reCAPTCHA.');
-      return;
-    }
+    if (!recaptchaResponse) { alert('Completa el reCAPTCHA.'); return; }
 
-    // 2) payload
     const payload = {
-      name: document.getElementById('name').value.trim(),
-      email: document.getElementById('email').value.trim(),
-      type: document.getElementById('type').value,
-      message: document.getElementById('message').value.trim(),
+      name:   document.getElementById('name').value.trim(),
+      email:  document.getElementById('email').value.trim(),
+      type:   document.getElementById('type').value,
+      message:document.getElementById('message').value.trim(),
       recaptcha: recaptchaResponse
     };
 
-    // 3) enviar a tu API
-    const endpoint = 'https://TU_API_DOMINIO.cl/api/contact'; // <-- cámbialo por tu API
+    // Cambia por la URL de tu API (HTTPS y con CORS permitido para tu dominio)
+    const endpoint = 'https://mirefugio.github.io';
+
     try {
       const res = await fetch(endpoint, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {'Content-Type':'application/json'},
         body: JSON.stringify(payload)
       });
-      if (!res.ok) throw new Error('Error al enviar el formulario');
+      if (!res.ok) throw new Error('Error al enviar');
+
       alert('¡Gracias! Recibimos tu mensaje.');
       form.reset();
       form.classList.remove('was-validated');
-      // reinicia el captcha
-      grecaptcha.reset();
+      grecaptcha.reset(); // reinicia el captcha
     } catch (err) {
       console.error(err);
       alert('No pudimos enviar tu mensaje. Intenta nuevamente.');
