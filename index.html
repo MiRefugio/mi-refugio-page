@@ -388,7 +388,7 @@
 
   // ENDPOINT del backend
   // Local (pruebas):
-  const endpoint = 'http://localhost:3001';
+  const endpoint = 'https://mirefugio.github.io';
   // Producción (cuando publiques la API en HTTPS):
   // const endpoint = 'https://api.tu-dominio.cl/api/contact';
 
@@ -456,13 +456,13 @@
     document.getElementById('year').textContent = new Date().getFullYear();
 
     // Validación Bootstrap
-    const form = document.getElementById('form');
-    form.addEventListener('submit', (e)=>{
-      if(!form.checkValidity() || (document.getElementById('message').value.trim().length < 10)){
+    const form1 = document.getElementById('form_contac');
+    form1.addEventListener('submit', (e)=>{
+      if(!form1.checkValidity() || (document.getElementById('message').value.trim().length < 10)){
         e.preventDefault();
         e.stopPropagation();
       }
-      form.classList.add('was-validated');
+      form1.classList.add('was-validated');
     });
   </script>
 </body>
