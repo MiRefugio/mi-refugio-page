@@ -339,7 +339,7 @@
         <div class="card shadow-soft border-0">
           <div class="card-body p-4">
             <h2 class="section-title mb-3">Preguntas y sugerencias</h2>
-            <form id="formc" class="row g-3" novalidate>
+            <form id="form_contac" class="row g-3" novalidate>
               <div class="col-md-6">
                 <label for="name" class="form-label">Nombre</label>
                 <input type="text" class="form-control" id="name" required placeholder="Tu nombre">
@@ -377,45 +377,61 @@
       </div>
     </section>
     <!--BACKEND FORM-->
+    
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <script>
+  // Año dinámico
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  const formc = document.getElementById('formc');
-  formc.addEventListener('submit', async (e) => {
-    if (!formc.checkValidity() || (document.getElementById('message').value.trim().length < 10)) {
+  // Selecciona el formulario correcto
+  const form = document.getElementById('form_contac');
+
+  // ENDPOINT del backend
+  // Local (pruebas):
+  const endpoint = 'http://localhost:3001/api/contact';
+  // Producción (cuando publiques la API en HTTPS):
+  // const endpoint = 'https://api.tu-dominio.cl/api/contact';
+
+  form.addEventListener('submit', async (e) => {
+    // Validación Bootstrap + longitud
+    if (!form.checkValidity() || (document.getElementById('message').value.trim().length < 10)) {
       e.preventDefault(); e.stopPropagation();
-      formc.classList.add('was-validated');
+      form.classList.add('was-validated');
       return;
     }
 
     e.preventDefault();
-    formc.classList.add('was-validated');
+    form.classList.add('was-validated');
 
+    // Token reCAPTCHA
     const recaptchaResponse = document.querySelector('textarea[name="g-recaptcha-response"]')?.value;
     if (!recaptchaResponse) { alert('Completa el reCAPTCHA.'); return; }
 
+    // Payload
     const payload = {
-      name:   document.getElementById('name').value.trim(),
-      email:  document.getElementById('email').value.trim(),
-      type:   document.getElementById('type').value,
-      message:document.getElementById('message').value.trim(),
+      name:    document.getElementById('name').value.trim(),
+      email:   document.getElementById('email').value.trim(),
+      type:    document.getElementById('type').value,
+      message: document.getElementById('message').value.trim(),
       recaptcha: recaptchaResponse
     };
-
-    // Cambia por la URL de tu API (HTTPS y con CORS permitido para tu dominio)
-    const endpoint = 'http://localhost:3001';
 
     try {
       const res = await fetch(endpoint, {
         method: 'POST',
-        headers: {'Content-Type':'application/json'},
+        headers: { 'Content-Type':'application/json' },
         body: JSON.stringify(payload)
       });
-      if (!res.ok) throw new Error('Error al enviar');
+
+      if (!res.ok) {
+        const err = await res.json().catch(()=>({}));
+        console.error('API error:', err);
+        throw new Error(err.error || 'Error al enviar');
+      }
 
       alert('¡Gracias! Recibimos tu mensaje.');
-      formc.reset();
-      formc.classList.remove('was-validated');
+      form.reset();
+      form.classList.remove('was-validated');
       grecaptcha.reset(); // reinicia el captcha
     } catch (err) {
       console.error(err);
@@ -423,6 +439,7 @@
     }
   });
 </script>
+
 
   </main>
 
@@ -434,7 +451,6 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <script>
     // Año dinámico
     document.getElementById('year').textContent = new Date().getFullYear();
