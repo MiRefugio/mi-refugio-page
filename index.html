@@ -380,55 +380,50 @@
     </section>
     <!--BACKEND FORM-->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-<script>
+    <script>
   // Año dinámico
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  const form   = document.getElementById('form_contac');
-  const alertB = document.getElementById('form-alert');
-
-  // Endpoint del backend (local). En producción usa tu dominio HTTPS.
-  const endpoint = 'https://mirefugio.github.io/mi-refugio-page/';
-
-  function showAlert(type, message) {
-    // type: 'success' | 'warning' | 'danger' | 'info'
-    alertB.className = `alert alert-${type}`;
-    alertB.textContent = message;
-    alertB.classList.remove('d-none');
+  // Helpers alertas
+  function showAlert(type, text) {
+    const wrap = document.getElementById('form-alert');
+    wrap.innerHTML = `
+      <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+        ${text}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+      </div>`;
   }
-  function hideAlert() {
-    alertB.className = 'alert d-none';
-    alertB.textContent = '';
-  }
+
+  const form = document.getElementById('form_contac');
+
+  // Cambia el endpoint según tu entorno
+  // LOCAL:
+  const endpoint = 'http://localhost:3001/api/contact';
+  // PRODUCCIÓN (cuando publiques tu API en HTTPS):
+  // const endpoint = 'https://api.tu-dominio.cl/api/contact';
 
   form.addEventListener('submit', async (e) => {
-    hideAlert();
+    e.preventDefault();
 
-    // Validación frontend (Bootstrap + longitud)
-    const msg = document.getElementById('message').value.trim();
-    if (!form.checkValidity() || msg.length < 10) {
-      e.preventDefault(); e.stopPropagation();
+    // Validación de Bootstrap + longitud
+    if (!form.checkValidity() || (document.getElementById('message').value.trim().length < 10)) {
       form.classList.add('was-validated');
-      showAlert('warning', 'Revisa los campos: completa el formulario y el mensaje (≥ 10 caracteres).');
+      showAlert('warning', 'Revisa los campos: el mensaje debe tener al menos 10 caracteres.');
       return;
     }
 
     // Token reCAPTCHA
     const recaptchaResponse = document.querySelector('textarea[name="g-recaptcha-response"]')?.value;
     if (!recaptchaResponse) {
-      e.preventDefault(); e.stopPropagation();
-      showAlert('warning', 'Por favor completa el reCAPTCHA.');
+      showAlert('warning', 'Completa el reCAPTCHA para poder enviar.');
       return;
     }
-
-    e.preventDefault();
-    form.classList.add('was-validated');
 
     const payload = {
       name:    document.getElementById('name').value.trim(),
       email:   document.getElementById('email').value.trim(),
       type:    document.getElementById('type').value,
-      message: msg,
+      message: document.getElementById('message').value.trim(),
       recaptcha: recaptchaResponse
     };
 
@@ -439,22 +434,22 @@
         body: JSON.stringify(payload)
       });
 
-      // Manejo de errores del backend con detalle
+      const data = await res.json().catch(()=> ({}));
+
       if (!res.ok) {
-        const err = await res.json().catch(()=>({ error: 'Error al enviar' }));
-        // errores comunes desde tu API: 'Campos requeridos...', 'Correo inválido', 'reCAPTCHA inválido'
-        showAlert('danger', err.error || 'No se pudo enviar el mensaje. Intenta nuevamente.');
+        // Muestra el error del backend si viene
+        const msg = data?.error || 'No pudimos enviar tu mensaje. Intenta nuevamente.';
+        showAlert('danger', `Error: ${msg}`);
         return;
       }
 
-      // Éxito
-      showAlert('success', '¡Gracias! Tu mensaje fue enviado correctamente.');
+      showAlert('success', '¡Gracias! Tu mensaje fue enviado correctamente. Te responderemos al correo ingresado.');
       form.reset();
       form.classList.remove('was-validated');
       grecaptcha.reset(); // reinicia el captcha
     } catch (err) {
       console.error(err);
-      showAlert('danger', 'No pudimos conectar con el servidor. Revisa tu conexión e intenta otra vez.');
+      showAlert('danger', 'No pudimos conectar con el servidor. Verifica que la API esté arriba y el endpoint sea correcto.');
     }
   });
 </script>
