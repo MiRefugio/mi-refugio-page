@@ -334,149 +334,136 @@
     </section>
 
     <!-- CONTACTO -->
-    <section id="contacto" class="py-4">
-      <div class="container">
-        <div class="card shadow-soft border-0">
-          <div class="card-body p-4">
+  <div class="container" style="max-width: 960px;">
+      <div class="card shadow-soft border-0">
+        <div class="card-body p-4">
+          <!-- ALERTAS -->
+          <div id="form-alert" class="alert d-none" role="alert"></div>
+
+          <!-- FORM -->
+          <form id="form_contac" class="row g-3" novalidate>
             <h2 class="section-title mb-3">Preguntas y sugerencias</h2>
-            <!-- ALERTAS -->
-            <div id="form-alert" class="alert d-none" role="alert"></div>
-            <form id="form_contac" class="row g-3" novalidate>
-              <div class="col-md-6">
-                <label for="name" class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="name" required placeholder="Tu nombre">
-                <div class="invalid-feedback">Ingresa tu nombre.</div>
-              </div>
-              <div class="col-md-6">
-                <label for="email" class="form-label">Correo</label>
-                <input type="email" class="form-control" id="email" required placeholder="tu@correo.com">
-                <div class="invalid-feedback">Ingresa un correo válido.</div>
-              </div>
-              <div class="col-md-6">
-                <label for="type" class="form-label">Tipo</label>
-                <select id="type" class="form-select" required>
-                  <option value="" selected disabled>Selecciona una opción</option>
-                  <option value="pregunta">Pregunta</option>
-                  <option value="sugerencia">Sugerencia</option>
-                  <option value="otro">Otro</option>
-                </select>
-                <div class="invalid-feedback">Selecciona el tipo de mensaje.</div>
-              </div>
-              <div class="col-12">
-                <label for="message" class="form-label">Mensaje</label>
-                <textarea id="message" class="form-control" rows="5" minlength="10" maxlength="1000" required placeholder="Cuéntanos en qué te podemos ayudar"></textarea>
-                <div class="form-text">Mínimo 10 caracteres.</div>
-                <div class="invalid-feedback">Ingresa un mensaje (≥ 10 caracteres).</div>
-              </div>
+            <div class="col-md-6">
+              <label for="name" class="form-label">Nombre</label>
+              <input type="text" class="form-control" id="name" required placeholder="Tu nombre">
+              <div class="invalid-feedback">Ingresa tu nombre.</div>
+            </div>
+            <div class="col-md-6">
+              <label for="email" class="form-label">Correo</label>
+              <input type="email" class="form-control" id="email" required placeholder="tu@correo.com">
+              <div class="invalid-feedback">Ingresa un correo válido.</div>
+            </div>
+            <div class="col-md-6">
+              <label for="type" class="form-label">Tipo</label>
+              <select id="type" class="form-select" required>
+                <option value="" selected disabled>Selecciona una opción</option>
+                <option value="pregunta">Pregunta</option>
+                <option value="sugerencia">Sugerencia</option>
+                <option value="otro">Otro</option>
+              </select>
+              <div class="invalid-feedback">Selecciona el tipo de mensaje.</div>
+            </div>
+            <div class="col-12">
+              <label for="message" class="form-label">Mensaje</label>
+              <textarea id="message" class="form-control" rows="5" minlength="10" maxlength="1000" required placeholder="Cuéntanos en qué te podemos ayudar"></textarea>
+              <div class="form-text">Mínimo 10 caracteres.</div>
+              <div class="invalid-feedback">Ingresa un mensaje (≥ 10 caracteres).</div>
+            </div>
+
+            <!-- reCAPTCHA v2 (checkbox) -->
+            <div class="col-12">
               <div class="g-recaptcha" data-sitekey="6LdvnN8rAAAAAHqkv8JSH0SnUMpuyVUr31Ql0QUa"></div>
-              <div class="col-12 d-flex gap-2">
-                <button type="submit" class="btn btn-mr">Enviar</button>
-                <button type="reset" class="btn btn-outline-mr">Limpiar</button>
-              </div>
-            </form>
-          </div>
-        </div>
+              <div class="form-text">Protegido por reCAPTCHA.</div>
+            </div>
+
+            <div class="col-12 d-flex gap-2">
+              <button type="submit" class="btn btn-mr">Enviar</button>
+              <button type="reset" class="btn btn-outline-secondary">Limpiar</button>
+            </div>
+          </form>
       </div>
-    </section>
-    <!--BACKEND FORM-->
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-    <script>
-  // Año dinámico
-  document.getElementById('year').textContent = new Date().getFullYear();
+  </main>
 
-  // Helpers alertas
-  function showAlert(type, text) {
-    const wrap = document.getElementById('form-alert');
-    wrap.innerHTML = `
-      <div class="alert alert-${type} alert-dismissible fade show" role="alert">
-        ${text}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
-      </div>`;
-  }
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- reCAPTCHA -->
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
-  const form = document.getElementById('form_contac');
+  <!-- Lógica del formulario (Apps Script) -->
+  <script>
+    // Año dinámico
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-  // Cambia el endpoint según tu entorno
-  // LOCAL:
-  const endpoint = 'http://localhost:3001/api/contact';
-  // PRODUCCIÓN (cuando publiques tu API en HTTPS):
-  // const endpoint = 'https://api.tu-dominio.cl/api/contact';
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    // Validación de Bootstrap + longitud
-    if (!form.checkValidity() || (document.getElementById('message').value.trim().length < 10)) {
-      form.classList.add('was-validated');
-      showAlert('warning', 'Revisa los campos: el mensaje debe tener al menos 10 caracteres.');
-      return;
+    // Helpers alertas
+    function showAlert(type, text) {
+      const wrap = document.getElementById('form-alert');
+      wrap.innerHTML = `
+        <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+          ${text}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+        </div>`;
+      wrap.classList.remove('d-none');
+    }
+    function hideAlert() {
+      const wrap = document.getElementById('form-alert');
+      wrap.className = 'alert d-none';
+      wrap.innerHTML = '';
     }
 
-    // Token reCAPTCHA
-    const recaptchaResponse = document.querySelector('textarea[name="g-recaptcha-response"]')?.value;
-    if (!recaptchaResponse) {
-      showAlert('warning', 'Completa el reCAPTCHA para poder enviar.');
-      return;
-    }
+    const form = document.getElementById('form_contac');
 
-    const payload = {
-      name:    document.getElementById('name').value.trim(),
-      email:   document.getElementById('email').value.trim(),
-      type:    document.getElementById('type').value,
-      message: document.getElementById('message').value.trim(),
-      recaptcha: recaptchaResponse
-    };
+    // Pega aquí TU URL de Apps Script (termina en /exec)
+    const endpoint = 'https://script.google.com/macros/s/AKfycbyvonDiYniT9OqtnPH9VujqrrJ8SPubOdFjY4VaBB4mv_3DOrg3eAN72zamC6m6Dxy1sg/exec';
 
-    try {
-      const res = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type':'application/json' },
-        body: JSON.stringify(payload)
-      });
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      hideAlert();
 
-      const data = await res.json().catch(()=> ({}));
-
-      if (!res.ok) {
-        // Muestra el error del backend si viene
-        const msg = data?.error || 'No pudimos enviar tu mensaje. Intenta nuevamente.';
-        showAlert('danger', `Error: ${msg}`);
+      const msg = document.getElementById('message').value.trim();
+      if (!form.checkValidity() || msg.length < 10) {
+        form.classList.add('was-validated');
+        showAlert('warning', 'Revisa los campos: el mensaje debe tener al menos 10 caracteres.');
         return;
       }
 
-      showAlert('success', '¡Gracias! Tu mensaje fue enviado correctamente. Te responderemos al correo ingresado.');
-      form.reset();
-      form.classList.remove('was-validated');
-      grecaptcha.reset(); // reinicia el captcha
-    } catch (err) {
-      console.error(err);
-      showAlert('danger', 'No pudimos conectar con el servidor. Verifica que la API esté arriba y el endpoint sea correcto.');
-    }
-  });
-</script>
-<script>
-  // Test rápido al backend
-  (async () => {
-    try {
-      const health = await fetch('http://localhost:3001/health', { method: 'GET' });
-      if (!health.ok) throw new Error('Health no OK');
-      // Opcional: mostrar un toast/alerta de “servidor OK”
-      console.log('API OK');
-    } catch (e) {
-      console.warn('API NO disponible');
-      const wrap = document.getElementById('form-alert');
-      if (wrap) {
-        wrap.innerHTML = `
-          <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            No pudimos conectar con el servidor de contacto local (<code>http://localhost:3001</code>).
-            Abre la landing en <b>http://127.0.0.1:5500</b> (Live Server) o despliega la API en HTTPS.
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
-          </div>`;
+      const recaptchaResponse = document.querySelector('textarea[name="g-recaptcha-response"]')?.value;
+      if (!recaptchaResponse) {
+        showAlert('warning', 'Completa el reCAPTCHA para poder enviar.');
+        return;
       }
-    }
-  })();
-</script>
 
+      const payload = {
+        name:    document.getElementById('name').value.trim(),
+        email:   document.getElementById('email').value.trim(),
+        type:    document.getElementById('type').value,
+        message: msg,
+        recaptcha: recaptchaResponse
+      };
 
+      try {
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type':'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await res.json().catch(()=> ({}));
+        if (!data?.ok) {
+          const errMsg = data?.error || 'No pudimos enviar tu mensaje. Intenta nuevamente.';
+          showAlert('danger', `Error: ${errMsg}`);
+          return;
+        }
+
+        showAlert('success', '¡Gracias! Tu mensaje fue enviado correctamente.');
+        form.reset();
+        form.classList.remove('was-validated');
+        grecaptcha.reset();
+      } catch (err) {
+        console.error(err);
+        showAlert('danger', 'No pudimos conectar con el servicio de correo. Intenta nuevamente.');
+      }
+    });
+  </script>
   </main>
 
   <footer class="py-4 border-top">
