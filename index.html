@@ -398,7 +398,7 @@
 
   // Cambia el endpoint según tu entorno
   // LOCAL:
-  const endpoint = 'http://localhost:3001';
+  const endpoint = 'http://localhost:3001/api/contact';
   // PRODUCCIÓN (cuando publiques tu API en HTTPS):
   // const endpoint = 'https://api.tu-dominio.cl/api/contact';
 
@@ -453,6 +453,29 @@
     }
   });
 </script>
+<script>
+  // Test rápido al backend
+  (async () => {
+    try {
+      const health = await fetch('http://localhost:3001/health', { method: 'GET' });
+      if (!health.ok) throw new Error('Health no OK');
+      // Opcional: mostrar un toast/alerta de “servidor OK”
+      console.log('API OK');
+    } catch (e) {
+      console.warn('API NO disponible');
+      const wrap = document.getElementById('form-alert');
+      if (wrap) {
+        wrap.innerHTML = `
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            No pudimos conectar con el servidor de contacto local (<code>http://localhost:3001</code>).
+            Abre la landing en <b>http://127.0.0.1:5500</b> (Live Server) o despliega la API en HTTPS.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+          </div>`;
+      }
+    }
+  })();
+</script>
+
 
   </main>
 
