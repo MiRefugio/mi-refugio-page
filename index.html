@@ -337,7 +337,7 @@
             <!-- ALERTAS -->
             <div id="form-alert" class="d-none"></div>
             <!-- FORM -->
-            <form id="form_contac" class="row g-3" novalidate>
+            <form id="form_contac" class="row g-3" method="POST" action="https://formspree.io/f/mqaylrbq" novalidate>
               <div class="col-md-6">
                 <label for="name" class="form-label">Nombre</label>
                 <input type="text" class="form-control" id="name" name="name" required placeholder="Tu nombre">
@@ -391,76 +391,71 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <!-- reCAPTCHA -->
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  
+ <script>
+  document.getElementById('year').textContent = new Date().getFullYear();
 
-  <!-- Lógica del formulario (Apps Script) -->
-<script>
-(() => {
-  const form = document.getElementById('form_contac');
-  const alertBox = document.getElementById('form-alert');
+  (() => {
+    const form = document.getElementById('form_contac');
+    const alertBox = document.getElementById('form-alert');
 
-  function showAlert(type, msg){
-    alertBox.className = `alert alert-${type}`;
-    alertBox.innerHTML = msg;
-    alertBox.classList.remove('d-none');
-  }
-
-  // Bootstrap validation + envío
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    alertBox.classList.add('d-none');
-
-    // Validación HTML5
-    if (!form.checkValidity()) {
-      form.classList.add('was-validated');
-      return;
+    function showAlert(type, msg){
+      alertBox.className = `alert alert-${type}`;
+      alertBox.innerHTML = msg;
+      alertBox.classList.remove('d-none');
     }
 
-    // Validar que el captcha esté resuelto
-    const captchaToken = grecaptcha.getResponse();
-    if (!captchaToken) {
-      showAlert('warning', 'Por favor, resuelve el reCAPTCHA antes de enviar.');
-      return;
-    }
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      alertBox.classList.add('d-none');
 
-    // Deshabilitar botón mientras se envía
-    const btnSubmit = form.querySelector('button[type="submit"]');
-    const prevText = btnSubmit.textContent;
-    btnSubmit.disabled = true; btnSubmit.textContent = 'Enviando…';
-
-    // Preparar datos (x-www-form-urlencoded)
-    const data = new URLSearchParams();
-    data.append('name', form.name.value.trim());
-    data.append('email', form.email.value.trim());
-    data.append('type', form.type.value);
-    data.append('message', form.message.value.trim());
-    data.append('g-recaptcha-response', captchaToken);
-
-    try {
-      const res = await fetch('https://script.google.com/macros/s/AKfycbyvonDiYniT9OqtnPH9VujqrrJ8SPubOdFjY4VaBB4mv_3DOrg3eAN72zamC6m6Dxy1sg/exec', {
-        method: 'POST',
-        body: data
-      });
-      const json = await res.json();
-
-      if (res.ok && json?.ok) {
-        showAlert('success', '¡Gracias! Tu mensaje fue enviado correctamente.');
-        form.reset();
-        form.classList.remove('was-validated');
-        grecaptcha.reset(); // limpia el captcha
-      } else {
-        const msg = json?.error || 'No se pudo enviar el formulario. Inténtalo nuevamente.';
-        showAlert('danger', msg);
-        grecaptcha.reset();
+      if (!form.checkValidity()) {
+        form.classList.add('was-validated');
+        return;
       }
-    } catch (err) {
-      showAlert('danger', `Error de red o CORS. ${err?.message || ''}`.trim());
-      grecaptcha.reset();
-    } finally {
-      btnSubmit.disabled = false; btnSubmit.textContent = prevText;
-    }
-  });
-})();
+
+      const captchaToken = grecaptcha.getResponse();
+      if (!captchaToken) {
+        showAlert('warning', 'Por favor, resuelve el reCAPTCHA antes de enviar.');
+        return;
+      }
+
+      const btn = form.querySelector('button[type="submit"]');
+      const prev = btn.textContent;
+      btn.disabled = true; btn.textContent = 'Enviando…';
+
+      try {
+        const fd = new FormData(form); // incluye todos los campos + g-recaptcha-response
+        const res = await fetch(form.action, {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: fd
+        });
+
+        if (res.ok) {
+          showAlert('success', '¡Gracias! Tu mensaje fue enviado correctamente.');
+          form.reset();
+          form.classList.remove('was-validated');
+          grecaptcha.reset();
+        } else {
+          let msg = 'No se pudo enviar el formulario. Inténtalo nuevamente.';
+          try {
+            const data = await res.json();
+            if (data?.errors?.length) msg = data.errors.map(e => e.message).join(', ');
+          } catch {}
+          showAlert('danger', msg);
+          grecaptcha.reset();
+        }
+      } catch (err) {
+        showAlert('danger', `Error de red. ${err?.message || ''}`.trim());
+        grecaptcha.reset();
+      } finally {
+        btn.disabled = false; btn.textContent = prev;
+      }
+    });
+  })();
 </script>
+
 
 
 </body>
