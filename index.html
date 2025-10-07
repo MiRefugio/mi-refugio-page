@@ -393,80 +393,75 @@
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
   <!-- Lógica del formulario (Apps Script) -->
-  <script>
-  // Año dinámico en el footer (asegúrate de tener <span id="year"></span> en tu footer)
-  (document.getElementById('year')||{}).textContent = new Date().getFullYear();
-
-  // Helpers de alertas
-  function showAlert(kind, text) {
-    const host = document.getElementById('form-alert');
-    host.className = '';
-    host.innerHTML = `
-      <div class="alert alert-${kind} alert-dismissible fade show" role="alert">
-        ${text}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
-      </div>`;
-  }
-  function hideAlert() {
-    const host = document.getElementById('form-alert');
-    host.className = 'd-none';
-    host.innerHTML = '';
-  }
-
+<script>
+(() => {
   const form = document.getElementById('form_contac');
+  const alertBox = document.getElementById('form-alert');
 
-  // 🔗 TU Web App URL (debe terminar en /exec)
-  // Ejemplo: 'https://script.google.com/macros/s/AKfycbxxxxxxxxxxxx/exec'
-  const endpoint = 'https://script.google.com/macros/s/AKfycbyvonDiYniT9OqtnPH9VujqrrJ8SPubOdFjY4VaBB4mv_3DOrg3eAN72zamC6m6Dxy1sg/exec';
+  function showAlert(type, msg){
+    alertBox.className = `alert alert-${type}`;
+    alertBox.innerHTML = msg;
+    alertBox.classList.remove('d-none');
+  }
 
+  // Bootstrap validation + envío
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    hideAlert();
+    alertBox.classList.add('d-none');
 
-    // Validación front
-    const msg = document.getElementById('message').value.trim();
-    if (!form.checkValidity() || msg.length < 10) {
+    // Validación HTML5
+    if (!form.checkValidity()) {
       form.classList.add('was-validated');
-      showAlert('warning', 'Revisa los campos: el mensaje debe tener al menos 10 caracteres.');
       return;
     }
 
-    // Token de reCAPTCHA (textarea oculto)
-    const recaptchaToken = document.querySelector('textarea[name="g-recaptcha-response"]')?.value || '';
-    if (!recaptchaToken) {
-      showAlert('warning', 'Completa el reCAPTCHA para poder enviar.');
+    // Validar que el captcha esté resuelto
+    const captchaToken = grecaptcha.getResponse();
+    if (!captchaToken) {
+      showAlert('warning', 'Por favor, resuelve el reCAPTCHA antes de enviar.');
       return;
     }
 
-    // 🚚 Envío como FormData (NO pongas Content-Type)
-    const fd = new FormData();
-    fd.append('name',    document.getElementById('name').value.trim());
-    fd.append('email',   document.getElementById('email').value.trim());
-    fd.append('type',    document.getElementById('type').value);
-    fd.append('message', msg);
-    fd.append('recaptcha', recaptchaToken);
+    // Deshabilitar botón mientras se envía
+    const btnSubmit = form.querySelector('button[type="submit"]');
+    const prevText = btnSubmit.textContent;
+    btnSubmit.disabled = true; btnSubmit.textContent = 'Enviando…';
+
+    // Preparar datos (x-www-form-urlencoded)
+    const data = new URLSearchParams();
+    data.append('name', form.name.value.trim());
+    data.append('email', form.email.value.trim());
+    data.append('type', form.type.value);
+    data.append('message', form.message.value.trim());
+    data.append('g-recaptcha-response', captchaToken);
 
     try {
-      const res = await fetch(endpoint, { method: 'POST', body: fd });
-      // Apps Script siempre responde 200; el estado viene en el body
-      let data = {};
-      try { data = await res.json(); } catch { data = {}; }
+      const res = await fetch('https://script.google.com/macros/s/AKfycbyvonDiYniT9OqtnPH9VujqrrJ8SPubOdFjY4VaBB4mv_3DOrg3eAN72zamC6m6Dxy1sg/exec', {
+        method: 'POST',
+        body: data
+      });
+      const json = await res.json();
 
-      if (!data.ok) {
-        const errMsg = data.error || 'No pudimos enviar tu mensaje. Intenta nuevamente.';
-        showAlert('danger', `Error: ${errMsg}`);
-        return;
+      if (res.ok && json?.ok) {
+        showAlert('success', '¡Gracias! Tu mensaje fue enviado correctamente.');
+        form.reset();
+        form.classList.remove('was-validated');
+        grecaptcha.reset(); // limpia el captcha
+      } else {
+        const msg = json?.error || 'No se pudo enviar el formulario. Inténtalo nuevamente.';
+        showAlert('danger', msg);
+        grecaptcha.reset();
       }
-
-      showAlert('success', '¡Gracias! Tu mensaje fue enviado correctamente.');
-      form.reset();
-      form.classList.remove('was-validated');
-      if (window.grecaptcha) grecaptcha.reset();
     } catch (err) {
-      console.error(err);
-      showAlert('danger', 'No pudimos conectar con el servicio. Verifica tu conexión e inténtalo otra vez.');
+      showAlert('danger', `Error de red o CORS. ${err?.message || ''}`.trim());
+      grecaptcha.reset();
+    } finally {
+      btnSubmit.disabled = false; btnSubmit.textContent = prevText;
     }
   });
+})();
 </script>
+
+
 </body>
 </html>
