@@ -1,0 +1,253 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- 1) SLIDE / HERO -->
+<section id="hero" class="bg-light">
+  <div id="mrCarousel" class="carousel slide">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#mrCarousel" data-bs-slide-to="0" class="active" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#mrCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active text-center py-5">
+        <img src="{% static 'img/logo.png' %}" class="d-block mx-auto mb-3" alt="Mi Refugio" style="height:100px;">
+        <h1 class="fw-bold">Mi Refugio</h1>
+        <p class="lead mb-4">Plataforma de bienestar emocional con recursos, acompañamiento y rutas de ayuda.</p>
+        <a class="btn btn-primary btn-lg" href="/#donar">Donar al proyecto</a>
+      </div>
+      <div class="carousel-item text-center py-5">
+        <h2 class="fw-semibold">Cuidarte también es un plan</h2>
+        <p class="lead mb-4">Diario emocional, ejercicios de respiración, números de emergencia y más.</p>
+        <a class="btn btn-outline-primary" href="/#features">Ver qué incluye</a>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#mrCarousel" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>
+    <button class="carousel-control-next" type="button" data-bs-target="#mrCarousel" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>
+  </div>
+</section>
+
+<!-- 2) ¿QUÉ ES MI REFUGIO? -->
+<section id="about" class="container py-5">
+  <div class="row align-items-center g-4">
+    <div class="col-lg-6">
+      <h2 class="mb-3">¿Qué es <span class="text-primary">Mi Refugio</span>?</h2>
+      <p class="lead">Una plataforma que te acompaña con herramientas simples para tu bienestar emocional.</p>
+      <ul class="mt-3">
+        <li><strong>Diario emocional:</strong> registra cómo te sientes y observa tu progreso.</li>
+        <li><strong>Recursos y guías:</strong> respiración, mindfulness y recomendaciones prácticas.</li>
+        <li><strong>Rutas de ayuda:</strong> teléfonos de emergencia y orientación local en Chile.</li>
+        <li><strong>Privacidad:</strong> tus datos se guardan de forma segura en PostgreSQL.</li>
+      </ul>
+      <a class="btn btn-primary mt-2" href="/#donar">Apoyar con una donación</a>
+    </div>
+    <div class="col-lg-6 text-center">
+      <img src="{% static 'img/logo.png' %}" alt="Mi Refugio" class="img-fluid" style="max-height:220px;">
+    </div>
+  </div>
+</section>
+
+<!-- 3) CÓMO USAR LA APP -->
+<section id="how" class="container py-5">
+  <h2 class="text-center mb-4">¿Cómo usar la app?</h2>
+  <div class="row g-4 text-center">
+    <div class="col-md-4">
+      <div class="card p-4 h-100">
+        <h5>1. Regístrate</h5>
+        <p>Crea tu cuenta y configura tus objetivos de bienestar.</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card p-4 h-100">
+        <h5>2. Registra tu día</h5>
+        <p>Escribe tu estado de ánimo en el diario y explora ejercicios guiados.</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card p-4 h-100">
+        <h5>3. Pide ayuda</h5>
+        <p>Accede a números de emergencia y recursos confiables cuando lo necesites.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4) QUÉ INCLUYE LA APP -->
+<section id="features" class="container py-5">
+  <h2 class="text-center mb-4">¿Qué incluye?</h2>
+  <div class="row g-4">
+    <div class="col-md-3"><div class="card h-100 p-3"><h5>Diario emocional</h5><p>Seguimiento con métricas básicas.</p></div></div>
+    <div class="col-md-3"><div class="card h-100 p-3"><h5>Respiración & Mindfulness</h5><p>Rutinas breves y accesibles.</p></div></div>
+    <div class="col-md-3"><div class="card h-100 p-3"><h5>Rutas de ayuda</h5><p>Números y orientación oficial.</p></div></div>
+    <div class="col-md-3"><div class="card h-100 p-3"><h5>Privacidad</h5><p>Datos en servidores seguros (PostgreSQL).</p></div></div>
+  </div>
+</section>
+
+<!-- 5) QUIÉNES SOMOS -->
+<section id="team" class="container py-5">
+  <h2 class="text-center mb-4">¿Quiénes somos?</h2>
+  <div class="row g-4">
+    <div class="col-6 col-md-3">
+      <div class="card h-100 text-center p-3">
+        <img src="{% static 'img/mateo.jpg' %}" alt="Mateo" class="rounded-circle mx-auto d-block object-fit-cover" width="120" height="120" loading="lazy">
+        <h6 class="mt-3 mb-1">Mateo Flores</h6><small class="text-muted">Co-fundador</small>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="card h-100 text-center p-3">
+        <img src="{% static 'img/pierre.jpg' %}" alt="Pierre" class="rounded-circle mx-auto d-block object-fit-cover" width="120" height="120" loading="lazy">
+        <h6 class="mt-3 mb-1">Pierre Salas</h6><small class="text-muted">Co-fundador</small>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="card h-100 text-center p-3">
+        <img src="{% static 'img/matias.png' %}" alt="Matías" class="rounded-circle mx-auto d-block object-fit-cover" width="120" height="120" loading="lazy">
+        <h6 class="mt-3 mb-1">Matías Rubilar</h6><small class="text-muted">Desarrollo</small>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="card h-100 text-center p-3">
+        <img src="{% static 'img/isaias.jpg' %}" alt="Isaías" class="rounded-circle mx-auto d-block object-fit-cover" width="120" height="120" loading="lazy">
+        <h6 class="mt-3 mb-1">Isaías Veloz</h6><small class="text-muted">Diseño / QA</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6) NÚMEROS DE EMERGENCIAS PSICOLÓGICAS (CHILE) -->
+<section id="emergencias" class="container py-5">
+  <h2 class="text-center mb-4">Emergencias psicológicas — Chile</h2>
+  <div class="accordion" id="accEmergencias">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="e-salud-h">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#e-salud">Salud y atención 24/7</button>
+      </h2>
+      <div id="e-salud" class="accordion-collapse collapse show" data-bs-parent="#accEmergencias">
+        <div class="accordion-body">
+          <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <div><strong>SAMU (Ambulancias)</strong><br><small>Emergencias médicas</small></div>
+              <div>
+                <a class="btn btn-link" href="tel:131">131</a>
+                <button class="btn btn-sm btn-outline-secondary copy-tel" data-number="131">Copiar</button>
+              </div>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <div><strong>Salud Responde (MINSAL)</strong><br><small>Orientación</small></div>
+              <div>
+                <a class="btn btn-link" href="tel:6003607777">600 360 7777</a>
+                <button class="btn btn-sm btn-outline-secondary copy-tel" data-number="6003607777">Copiar</button>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="e-apoyo-h">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#e-apoyo">Apoyo y contención</button>
+      </h2>
+      <div id="e-apoyo" class="accordion-collapse collapse" data-bs-parent="#accEmergencias">
+        <div class="accordion-body">
+          <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <div><strong>Violencia contra la mujer</strong></div>
+              <div>
+                <a class="btn btn-link" href="tel:1455">1455</a>
+                <button class="btn btn-sm btn-outline-secondary copy-tel" data-number="1455">Copiar</button>
+              </div>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <div><strong>Atención emocional</strong> <small>(ejemplo)</small></div>
+              <div>
+                <a class="btn btn-link" href="tel:*4141">*4141</a>
+                <button class="btn btn-sm btn-outline-secondary copy-tel" data-number="*4141">Copiar</button>
+              </div>
+            </li>
+            <!-- agrega aquí los números exactos que usabas antes -->
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="text-center mt-3 small text-muted">
+    <em>En riesgo vital, llama al 131 o acude al servicio de urgencias más cercano.</em>
+  </p>
+</section>
+
+<!-- 7) ENLACES DE DESCARGA -->
+<section id="descargas" class="container py-5 text-center">
+  <h2 class="mb-3">Descarga la app</h2>
+  <p class="text-muted mb-4">Próximamente en tiendas</p>
+  <div class="d-flex justify-content-center gap-3 flex-wrap">
+    <a class="btn btn-outline-secondary disabled" aria-disabled="true">Google Play (pronto)</a>
+    <a class="btn btn-outline-secondary disabled" aria-disabled="true">App Store (pronto)</a>
+    <a class="btn btn-outline-secondary" href="/#preguntas">Quiero ser tester</a>
+  </div>
+</section>
+
+<!-- 8) FORMULARIO PREGUNTAS / SUGERENCIAS (con reCAPTCHA) -->
+<section id="preguntas" class="container py-5">
+  <h2 class="text-center mb-4">Preguntas y sugerencias</h2>
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <form method="post" action="https://formspree.io/f/xzzjvnva" class="row g-3">
+        {% csrf_token %}
+        <div class="col-md-6">
+          <label class="form-label">Nombre</label>
+          <input name="nombre" type="text" class="form-control" maxlength="120" required>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Email</label>
+          <input name="email" type="email" class="form-control" required>
+        </div>
+        <div class="col-12">
+          <label class="form-label">Mensaje</label>
+          <textarea name="mensaje" rows="4" class="form-control" required></textarea>
+        </div>
+        <div class="col-12">
+          <!-- reCAPTCHA v2 checkbox: reemplaza por tu SITE KEY -->
+          <div class="g-recaptcha" data-sitekey="6LdvnN8rAAAAAHqkv8JSH0SnUMpuyVUr31Ql0QUa"></div>
+        </div>
+        <div class="col-12">
+          <button class="btn btn-primary">Enviar</button>
+        </div>
+      </form>
+      <div class="form-text mt-2">Tu información se almacenará de forma segura en nuestra base de datos.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 9) FORM DONACIONES (Webpay) -->
+<section id="donar" class="container py-5">
+  <h2 class="text-center mb-4">Apoya Mi Refugio</h2>
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
+      <form method="post" action="/donar/" class="row g-3">
+        {% csrf_token %}
+        <div class="col-12">
+          <label class="form-label">Monto (CLP)</label>
+          <input name="amount" type="number" min="500" step="1" class="form-control" placeholder="Ej: 3000" required>
+          <div class="form-text">Mínimo $500</div>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Nombre (opcional)</label>
+          <input name="name" type="text" maxlength="120" class="form-control">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Email (opcional)</label>
+          <input name="email" type="email" class="form-control">
+        </div>
+        <div class="col-12">
+          <label class="form-label">Mensaje (opcional)</label>
+          <textarea name="message" rows="3" class="form-control"></textarea>
+        </div>
+        <div class="col-12">
+          <button class="btn btn-primary btn-lg">Donar con Webpay</button>
+        </div>
+      </form>
+      <p class="small text-muted mt-2">Las donaciones se usan para mejorar la app, mantener servidores y crear nuevos contenidos.</p>
+    </div>
+  </div>
+</section>
+{% endblock %}
