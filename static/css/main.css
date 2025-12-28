@@ -1,0 +1,37 @@
+:root{
+  --mr-primary:#3A86FF;       /* azul principal */
+  --mr-primary-600:#2f6ccc;   /* hover */
+  --mr-bg:#f8fbff;
+  --mr-text:#1f2937;
+}
+
+html,body{height:100%;}
+body{
+  background:var(--mr-bg);
+  color:var(--mr-text);
+}
+
+.btn-primary{
+  background:var(--mr-primary);
+  border-color:var(--mr-primary);
+}
+.btn-primary:hover{background:var(--mr-primary-600); border-color:var(--mr-primary-600);}
+
+.navbar{ box-shadow:0 2px 12px rgba(0,0,0,.04); }
+
+.hero{
+  padding:6rem 0 3rem;
+  background:linear-gradient(180deg, #ffffff 0%, #f0f6ff 100%);
+}
+.hero h1{ letter-spacing:.2px; }
+.hero .lead{ color:#4b5563; }
+
+.card{
+  border:0;
+  box-shadow:0 6px 24px rgba(16,24,40,.06);
+  border-radius:1rem;
+}
+
+footer{ background:#fff; }
+
+img.logo{ height:36px; }
